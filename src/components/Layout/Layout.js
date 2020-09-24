@@ -10,6 +10,7 @@ import {
 import { green } from "@material-ui/core/colors";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { PATH_TO_DISHES, PATH_TO_ORDERS } from "../../paths";
 
 const useStyle = makeStyles((theme) => ({
   headerToolbar: {
@@ -28,6 +29,9 @@ const useStyle = makeStyles((theme) => ({
       color: green["A400"],
     },
   },
+  mainBlock: {
+    marginTop: "80px",
+  },
 }));
 const Layout = ({ children }) => {
   const classes = useStyle();
@@ -42,12 +46,20 @@ const Layout = ({ children }) => {
               </Typography>
               <List className={classes.headerList}>
                 <ListItem>
-                  <NavLink className={classes.NavLink} exact to="/orders">
+                  <NavLink
+                    className={classes.NavLink}
+                    exact
+                    to={PATH_TO_ORDERS}
+                  >
                     Orders
                   </NavLink>
                 </ListItem>
                 <ListItem>
-                  <NavLink className={classes.NavLink} exact to="/dishes">
+                  <NavLink
+                    className={classes.NavLink}
+                    exact
+                    to={PATH_TO_DISHES}
+                  >
                     Dishes
                   </NavLink>
                 </ListItem>
@@ -56,7 +68,7 @@ const Layout = ({ children }) => {
           </Container>
         </AppBar>
       </header>
-      <main>
+      <main className={classes.mainBlock}>
         <Container>{children}</Container>
       </main>
     </div>

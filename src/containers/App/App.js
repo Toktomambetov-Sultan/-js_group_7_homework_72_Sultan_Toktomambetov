@@ -1,17 +1,18 @@
 import React from "react";
 import "./App.css";
 import Layout from "../../components/Layout/Layout";
-import { Switch } from "@material-ui/core";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+import DishesPage from "../DishesPage/DishesPage";
+import { PATH_TO_DISHES, PATH_TO_ORDERS } from "../../paths";
 
 function App() {
   return (
     <div>
       <Layout>
         <Switch>
-          <Redirect from="/" exact to="/orders" />
-          <Route path="/orders" />
-          <Route path="/dishes" />
+          <Redirect from="/" exact to={PATH_TO_ORDERS} />
+          <Route path={PATH_TO_DISHES} exact component={DishesPage} />
+          <Route path={PATH_TO_ORDERS} exact />
         </Switch>
       </Layout>
     </div>
