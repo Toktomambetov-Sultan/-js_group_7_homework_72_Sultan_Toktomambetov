@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DialogForm from "../../components/DialogForm/DialogForm";
 import DishCard from "../../components/DishesPage/DishCard/DishCard";
 import { addNewDish } from "../../store/actions";
@@ -20,6 +20,8 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 const DishesPage = () => {
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [currentDish, setCurrentDish] = useState({
     name: "",
@@ -28,6 +30,7 @@ const DishesPage = () => {
   });
   const closeModalWin = () => setOpenModal(false);
   const openModalWin = () => setOpenModal(true);
+  const addnewDishHandler = (currentDish) => dispatch(addNewDish(currentDish));
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -39,7 +42,7 @@ const DishesPage = () => {
     )
       return;
     closeModalWin();
-    addNewDish({ ...currentDish });
+    addnewDishHandler({ ...currentDish });
   };
   const onChange = (event) => {
     const id = event.target.id;
@@ -52,7 +55,6 @@ const DishesPage = () => {
   };
 
   const classes = useStyle();
-  const state = useSelector((state) => state);
   return (
     <div>
       <div className={classes.topBlock}>
@@ -70,9 +72,9 @@ const DishesPage = () => {
         </Container>
       </div>
       <Container>
-        <List>
-          {state.dishes.map((dish) => (
-            <DishCard src={dish.imgSrc} name={dish.name} price={dish.price} />
+        <List dense={true}>
+          {state.dishes.map((dish,index) => (
+            <DishCard src={dish.imgSrc} name={dish.name} price={dish.price} key={index} />
           ))}
         </List>
       </Container>

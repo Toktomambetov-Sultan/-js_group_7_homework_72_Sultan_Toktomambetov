@@ -26,7 +26,7 @@ const useStyle = makeStyles((theme) => ({
 const DishCard = (props) => {
   const classes = useStyle();
   return (
-    <List item>
+    <List item="true">
       <Card className={classes.dishCard}>
         <div className="image">
           <img src={props.src} alt={props.name} />
