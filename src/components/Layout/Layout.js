@@ -30,7 +30,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   mainBlock: {
-    marginTop: "80px",
+    marginTop: "70px",
   },
 }));
 const Layout = ({ children }) => {
@@ -68,9 +68,7 @@ const Layout = ({ children }) => {
           </Container>
         </AppBar>
       </header>
-      <main className={classes.mainBlock}>
-        <Container>{children}</Container>
-      </main>
+      <main className={classes.mainBlock}>{children}</main>
     </div>
   );
 };
