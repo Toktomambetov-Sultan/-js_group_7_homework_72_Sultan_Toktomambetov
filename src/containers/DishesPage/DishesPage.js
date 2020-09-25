@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import DialogForm from "../../components/DialogForm/DialogForm";
 import DishCard from "../../components/DishesPage/DishCard/DishCard";
+import { addNewDish } from "../../store/actions";
 
 const useStyle = makeStyles((theme) => ({
   topBlock: {
@@ -30,7 +31,15 @@ const DishesPage = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (
+      Object.values(currentDish).reduce((acc, item) => {
+        if (acc || !item) return true;
+        return false;
+      }, false)
+    )
+      return;
     closeModalWin();
+    addNewDish({ ...currentDish });
   };
   const onChange = (event) => {
     const id = event.target.id;

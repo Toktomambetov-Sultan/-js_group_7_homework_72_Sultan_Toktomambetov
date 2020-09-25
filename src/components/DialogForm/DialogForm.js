@@ -46,7 +46,7 @@ const DialogForm = (props) => {
             Cancel
           </Button>
           <Button type="submit" color="primary">
-            Subscribe
+            add
           </Button>
         </DialogActions>
       </form>
