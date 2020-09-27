@@ -1,13 +1,34 @@
-const { ADD_NEW_DISH } = require("./actionsType");
+import { FETCH_INIT, FETCH_REQUEST, FETCH_SUCCESS, FETCH_ERROR } from "./actionsType";
 
 const initialState = {
   dishes: [],
+  isloading: false,
+  error: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_NEW_DISH:
-      return { ...state, dishes: [...state.dishes, action.currentDish] };
+    case FETCH_REQUEST:
+      return { ...state, isLoading: true };
+    case FETCH_INIT:
+      return {
+        ...state,
+        dishes: Object.keys(action.data).map((key) => ({
+          ...action.data[key],
+          id: key,
+        })),
+      };
+    case FETCH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case FETCH_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

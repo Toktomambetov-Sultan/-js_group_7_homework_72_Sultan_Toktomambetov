@@ -1,3 +1,5 @@
-export const ADD_NEW_DISH = "ADD_NEW_DISH";
-export const DELETE_DISH = "DELETE_DISH";
-export const EDIT_DISH = "EDIT_DISH";
+export const FETCH_REQUEST = "FETCH_REQUEST";
+export const FETCH_INIT = "FETCH_INIT";
+
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_ERROR = "FETCH_ERROR";

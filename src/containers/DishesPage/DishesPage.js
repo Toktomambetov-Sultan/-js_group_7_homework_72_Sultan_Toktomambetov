@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DialogForm from "../../components/DialogForm/DialogForm";
 import DishCard from "../../components/DishesPage/DishCard/DishCard";
-import { addNewDish } from "../../store/actions";
+import { addDish } from "../../store/actions";
 
 const useStyle = makeStyles((theme) => ({
   topBlock: {
@@ -30,27 +30,18 @@ const DishesPage = () => {
   });
   const closeModalWin = () => setOpenModal(false);
   const openModalWin = () => setOpenModal(true);
-  const addnewDishHandler = (currentDish) => dispatch(addNewDish(currentDish));
+  const addnewDishHandler = async (currentDish) => await dispatch(addDish(currentDish));
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    if (
-      Object.values(currentDish).reduce((acc, item) => {
-        if (acc || !item) return true;
-        return false;
-      }, false)
-    )
-      return;
+    await addnewDishHandler({ ...currentDish });
     closeModalWin();
-    addnewDishHandler({ ...currentDish });
   };
   const onChange = (event) => {
-    const id = event.target.id;
-    const value = event.target.value;
-
+    const { id: name, value } = event.target;
     setCurrentDish((lastData) => ({
       ...lastData,
-      [id]: value,
+      [name]: value,
     }));
   };
 
@@ -73,8 +64,8 @@ const DishesPage = () => {
       </div>
       <Container>
         <List dense={true}>
-          {state.dishes.map((dish,index) => (
-            <DishCard src={dish.imgSrc} name={dish.name} price={dish.price} key={index} />
+          {state.dishes.map((dish) => (
+            <DishCard src={dish.imgSrc} name={dish.name} price={dish.price} key={dish.id} />
           ))}
         </List>
       </Container>

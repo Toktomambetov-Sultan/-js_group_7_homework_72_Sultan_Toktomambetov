@@ -12,10 +12,11 @@ const DialogForm = (props) => {
   return (
     <Dialog open={props.open} onClose={props.onClose}>
       <DialogTitle>New Dish</DialogTitle>
-      <form onSubmit={props.onSubmit} onChange={props.onChange}>
+      <form onSubmit={props.onSubmit} onChange={props.onChange} >
         <DialogContent>
           <TextField
             margin="dense"
+            required
             value={props.name}
             id="name"
             label="Dish name"
@@ -27,6 +28,7 @@ const DialogForm = (props) => {
             margin="dense"
             value={props.price}
             id="price"
+            required
             label="Dish price"
             type="number"
             fullWidth
