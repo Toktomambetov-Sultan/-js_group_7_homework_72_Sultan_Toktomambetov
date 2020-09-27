@@ -34,8 +34,8 @@ const DishCard = (props) => {
         <Typography variant="h5">{props.name}</Typography>
         <Typography variant="subtitle1">{props.price} KGS</Typography>
         <div className="btns">
-          <Button variant="contained">Edit</Button>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" onClick={props.onEdit}>Edit</Button>
+          <Button variant="contained" onClick={props.onDelete} color="secondary" >
             Delete
           </Button>
         </div>

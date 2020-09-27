@@ -45,13 +45,15 @@ export const deleteDish = (id) => {
   };
 };
 
-export const editDish = (id, currentDish) => {
+export const editDish = (currentDish) => {
   return async (dispatch) => {
     dispatch(fetchRequest());
     try {
-      await axiosOrder.put("/dishes/" + id + ".json", currentDish);
+      await axiosOrder.put("/dishes/" + currentDish.id + ".json", currentDish);
       const response = await axiosOrder.get("/dishes.json");
+      console.log(response.data);
       dispatch(fetchInit(response.data ? response.data : []));
+
       dispatch(fetchSuccess());
     } catch (e) {
       dispatch(fetchError(e));

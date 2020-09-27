@@ -11,7 +11,7 @@ import {
 const DialogForm = (props) => {
   return (
     <Dialog open={props.open} onClose={props.onClose}>
-      <DialogTitle>New Dish</DialogTitle>
+      <DialogTitle>{props.title}</DialogTitle>
       <form onSubmit={props.onSubmit} onChange={props.onChange} >
         <DialogContent>
           <TextField
@@ -48,7 +48,7 @@ const DialogForm = (props) => {
             Cancel
           </Button>
           <Button type="submit" color="primary">
-            add
+            Continue
           </Button>
         </DialogActions>
       </form>
