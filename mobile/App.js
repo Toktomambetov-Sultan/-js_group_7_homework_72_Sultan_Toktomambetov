@@ -26,6 +26,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   mainWrapper: {
-    paddingTop: 25
+    paddingTop: 25,
+    height: "100%",
   }
 });
