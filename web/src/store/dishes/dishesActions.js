@@ -1,5 +1,10 @@
-import axiosOrder from "../axiosOrder";
-import { FETCH_REQUEST, FETCH_INIT, FETCH_ERROR, FETCH_SUCCESS } from "./actionsType";
+import axiosOrder from "../../axiosOrder";
+import {
+  FETCH_REQUEST,
+  FETCH_INIT,
+  FETCH_ERROR,
+  FETCH_SUCCESS,
+} from "../actionsType";
 
 const fetchRequest = () => {
   return { type: FETCH_REQUEST };
@@ -36,6 +41,17 @@ export const deleteDish = (id) => {
     dispatch(fetchRequest());
     try {
       await axiosOrder.delete("/dishes/" + id + ".json");
+      const ordersResponse = await axiosOrder.get("/orders.json");
+      const orders = Object.keys(ordersResponse.data)
+        .map((key) => ({
+          dishes: { ...ordersResponse.data[key] },
+          id: key,
+        }))
+        .filter((item) => Object.keys(item.dishes).indexOf(id));
+      await orders.forEach(async (item) => {
+        await axiosOrder.delete("/orders/" + item.id + "/"+id+".json");
+      });
+
       const response = await axiosOrder.get("/dishes.json");
       dispatch(fetchInit(response.data ? response.data : []));
       dispatch(fetchSuccess());

@@ -12,7 +12,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DialogForm from "../../components/DialogForm/DialogForm";
 import DishCard from "../../components/DishesPage/DishCard/DishCard";
-import { addDish, deleteDish, editDish, initDishes } from "../../store/actions";
+import {
+  addDish,
+  deleteDish,
+  editDish,
+  initDishes,
+} from "../../store/dishes/dishesActions";
 
 const useStyle = makeStyles((theme) => ({
   topBlock: {
@@ -26,7 +31,7 @@ const initialCurrentDish = {
   imgSrc: "",
 };
 const DishesPage = () => {
-  const state = useSelector((state) => state);
+  const dishesState = useSelector((state) => state.dishes);
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [currentDish, setCurrentDish] = useState(initialCurrentDish);
@@ -57,15 +62,13 @@ const DishesPage = () => {
     openModalWin();
   };
 
-
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(currentDish, state);
     if (currentDish.id) {
       await editDishHandler({ ...currentDish });
     } else {
       await addDishHandler({ ...currentDish });
-    };
+    }
     closeModalWin();
   };
 
@@ -80,10 +83,10 @@ const DishesPage = () => {
   const classes = useStyle();
   return (
     <div>
-      {state.isLoading ? (
+      {dishesState.isLoading ? (
         <CircularProgress />
-      ) :
-        (<>
+      ) : (
+        <>
           <div className={classes.topBlock}>
             <Container>
               <Grid container justify="space-between">
@@ -91,16 +94,20 @@ const DishesPage = () => {
                   <Typography variant="h5">Dishes</Typography>
                 </Grid>
                 <Grid item>
-                  <Button onClick={openModalWin} variant="outlined" color="primary">
+                  <Button
+                    onClick={openModalWin}
+                    variant="outlined"
+                    color="primary"
+                  >
                     Add new dish
-              </Button>
+                  </Button>
                 </Grid>
               </Grid>
             </Container>
           </div>
           <Container>
             <List dense={true}>
-              {state.dishes.map((dish) => (
+              {dishesState.dishes.map((dish) => (
                 <DishCard
                   src={dish.imgSrc}
                   name={dish.name}
@@ -118,9 +125,9 @@ const DishesPage = () => {
             onChange={onChange}
             open={openModal}
             {...currentDish}
-          /></>
-        )
-      }
+          />
+        </>
+      )}
     </div>
   );
 };

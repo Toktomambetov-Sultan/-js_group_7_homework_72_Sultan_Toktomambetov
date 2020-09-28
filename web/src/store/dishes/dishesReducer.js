@@ -1,4 +1,4 @@
-import { FETCH_INIT, FETCH_REQUEST, FETCH_SUCCESS, FETCH_ERROR } from "./actionsType";
+import { FETCH_INIT, FETCH_REQUEST, FETCH_SUCCESS, FETCH_ERROR } from "../actionsType";
 
 const initialState = {
   dishes: [],
@@ -6,7 +6,7 @@ const initialState = {
   error: null,
 };
 
-const reducer = (state = initialState, action) => {
+const dishesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_REQUEST:
       return { ...state, isLoading: true };
@@ -34,4 +34,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default dishesReducer;
