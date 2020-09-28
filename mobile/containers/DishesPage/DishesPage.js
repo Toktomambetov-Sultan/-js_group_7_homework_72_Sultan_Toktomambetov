@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { dishesInit } from '../../store/dishes/dishesActions';
 import DishCard from '../../components/DishCard/DishCard';
-import { addDishToCart, dishesInitInCart } from '../../store/cart/cartActions';
+import { addDishToCart, changeModalState, dishesInitInCart, deleteDishFromCart } from '../../store/cart/cartActions';
+import CartModal from '../../components/CartModal/CartModal';
+
 
 const DishesPage = () => {
     const dishesState = useSelector(state => state.dishes);
@@ -11,6 +13,8 @@ const DishesPage = () => {
     const dispatch = useDispatch();
     const addDishToCartHandler = (dish) => dispatch(addDishToCart(dish));
     const dishesInitInCartHandler = () => dispatch(dishesInitInCart());
+    const changeModalStateHandler = (bool) => dispatch(changeModalState(bool));
+    const deleteDishFromCartHandler = (dish) => dispatch(deleteDishFromCart(dish));
 
     useEffect(() => {
         const dishesInitHandler = () => dispatch(dishesInit());
@@ -34,9 +38,10 @@ const DishesPage = () => {
             <View style={styles.bottom}>
                 <Text style={styles.bottomText}>Total order: {cartState.totalPrice}</Text>
                 <View style={styles.bottomButton}>
-                    <Button title="Checkout" />
+                    <Button title="Checkout" onPress={() => changeModalStateHandler(true)} />
                 </View>
             </View>
+            <CartModal onClose={() => changeModalStateHandler(false)} deleteDish={deleteDishFromCartHandler} />
         </View>
     );
 };
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
         width: "50%",
         justifyContent: "center",
         alignItems: "center",
-        fontSize: 16
+        fontSize: 16,
     }
 });
 
