@@ -42,7 +42,7 @@ const fetchSuccess = () => {
 const fetchError = (error) => {
     return { type: FETCH_ERROR, error };
 };
-export const ordersPost = (data) => {
+export const orderPost = (data) => {
     return async (dispatch) => {
         dispatch(fetchRequest());
         try {
