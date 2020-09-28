@@ -47,7 +47,7 @@ export const deleteDish = (id) => {
           dishes: { ...ordersResponse.data[key] },
           id: key,
         }))
-        .filter((item) => Object.keys(item.dishes).indexOf(id));
+        .filter((item) => !!(Object.keys(item.dishes).indexOf(id)+1));
       await orders.forEach(async (item) => {
         await axiosOrder.delete("/orders/" + item.id + "/"+id+".json");
       });
@@ -77,11 +77,11 @@ export const editDish = (currentDish) => {
   };
 };
 
-export const addDish = (currenDish) => {
+export const addDish = (currentDish) => {
   return async (dispatch) => {
     dispatch(fetchRequest());
     try {
-      await axiosOrder.post("/dishes.json", currenDish);
+      await axiosOrder.post("/dishes.json", currentDish);
       const response = await axiosOrder.get("/dishes.json");
       dispatch(fetchInit(response.data ? response.data : []));
       dispatch(fetchSuccess());
